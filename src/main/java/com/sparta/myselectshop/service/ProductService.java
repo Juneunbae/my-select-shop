@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -42,5 +44,11 @@ public class ProductService {
         product.update(requestDto);
         log.info("상품 정보 수정 완료");
         return new ProductResponseDto(product);
+    }
+
+    public List<ProductResponseDto> getProducts() {
+        return productRepository.findAll().stream().map(
+            ProductResponseDto::new
+        ).toList();
     }
 }
